@@ -52,10 +52,10 @@ loop() {
   while true; do
     if [ "$BIND_IP" == "" ]; then
       echo "Connecting to ${SERVER} ..."
-      ssh -o ServerAliveInterval=30 -o ServerAliveCountMax=1 -N -R 2223:localhost:2222 -p 2222 tunnel@$1
+      ssh -o ServerAliveInterval=60 -o ServerAliveCountMax=1 -N -R 2223:localhost:2222 -p 2222 tunnel@$1
     else
       echo "Connecting to ${SERVER} from ${BIND_IP} ..."
-      ssh -b ${BIND_IP} -o ServerAliveInterval=30 -o ServerAliveCountMax=1 -N -R 2223:localhost:2222 -p 2222 tunnel@$1
+      ssh -b ${BIND_IP} -o ServerAliveInterval=60 -o ServerAliveCountMax=1 -N -R 2223:localhost:2222 -p 2222 tunnel@$1
     fi
     echo "Connection to ${SERVER} lost, retrying in ${RETRY_DELAY}s"
     sleep ${RETRY_DELAY}
