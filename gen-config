@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Create config directory
+mkdir -p config
+
+# Setup files
+touch config/known_hosts
+touch config/authorized_keys
+
+# Generate host key
+ssh-keygen -f config/host_key -N '' -t ecdsa
+
+# Generate user key
+ssh-keygen -f config/key -N '' -t ecdsa
+
+# Set permissions
+chown 10000.10000 config/*
+
+exit 0
