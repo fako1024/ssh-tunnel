@@ -1,5 +1,5 @@
-VERSION_MASTER=v1.0.4
-VERSION_CLIENT=v1.0.4
+VERSION_MASTER=v1.0.5
+VERSION_CLIENT=v1.0.5
 
 build-master:
 	docker build master -t fako1024/ssh-tunnel-master:$(VERSION_MASTER) -f master/Dockerfile

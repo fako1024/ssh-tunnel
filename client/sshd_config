@@ -5,7 +5,7 @@ MACs hmac-sha2-512
 MaxAuthTries 3
 MaxStartups 3:50:6
 LoginGraceTime 30
-PermitRootLogin no
+PermitRootLogin without-password
 StrictModes yes
 PubkeyAuthentication yes
 HostbasedAuthentication no
@@ -13,6 +13,6 @@ PasswordAuthentication no
 ChallengeResponseAuthentication no
 ClientAliveInterval 300
 ClientAliveCountMax 0
-HostKey /home/tunnel/ssh_host_ecdsa_key
-PidFile /home/tunnel/sshd.pid
-AllowUsers tunnel
+HostKey /ssh_host_ecdsa_key
+PidFile /run/sshd.pid
+AllowUsers root

@@ -1,15 +1,9 @@
 FROM alpine:3.12
 
-ARG USER=tunnel
-ENV HOME /home/$USER
-
 RUN apk --no-cache --update add openssh-server openssh-client
-RUN adduser -u 10000 -D $USER
+RUN sed -i s/root:!/"root:*"/g /etc/shadow
 
-COPY run.sh /home/$USER/
-COPY --chown=$USER sshd_config /home/$USER/
+COPY run.sh /
+COPY sshd_config /etc/ssh/
 
-USER $USER
-WORKDIR $HOME
-
-CMD ["./run.sh"]
+CMD ["/run.sh"]
