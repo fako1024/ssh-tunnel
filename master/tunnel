@@ -1,0 +1,15 @@
+#!/bin/sh
+
+SERVER=$1
+
+if [ "$SERVER" == "" ]; then
+  echo "Available servers: ${SERVERS}"
+  exit 0
+fi
+
+if [ "$BIND_IP" == "" ]; then
+  ssh -p 2222 root@$SERVER
+else
+  ssh -b ${BIND_IP} -p 2222 root@$SERVER
+fi
+ exit $?
