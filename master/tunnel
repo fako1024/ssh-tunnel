@@ -7,9 +7,12 @@ if [ "$SERVER" == "" ]; then
   exit 0
 fi
 
-if [ "$BIND_IP" == "" ]; then
-  ssh -p 2222 root@$SERVER
-else
+if [ "$BIND_IP" != "" ]; then
   ssh -b ${BIND_IP} -p 2222 root@$SERVER
+elif [ "$BIND_IFACE" != "" ]; then
+  ssh -B ${BIND_IFACE} -p 2222 root@$SERVER
+else
+  ssh -p 2222 root@$SERVER
 fi
- exit $?
+
+exit $?

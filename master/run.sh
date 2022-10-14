@@ -50,12 +50,15 @@ chmod 600 /root/.ssh/id_ecdsa || exit 1
 # continuously try to connect to the remote server
 loop() {
   while true; do
-    if [ "$BIND_IP" == "" ]; then
+    if [ "$BIND_IP" != "" ]; then
+      echo "Connecting to ${SERVER} from IP ${BIND_IP} ..."
+      ssh -b ${BIND_IP} -o ServerAliveInterval=60 -o ServerAliveCountMax=1 -N -R 2223:localhost:2222 -p 2222 root@$1
+    elif [ "$BIND_IFACE" != "" ]; then
+      echo "Connecting to ${SERVER} from interface ${BIND_IFACE} ..."
+      ssh -B ${BIND_IFACE} -o ServerAliveInterval=60 -o ServerAliveCountMax=1 -N -R 2223:localhost:2222 -p 2222 root@$1
+    else
       echo "Connecting to ${SERVER} ..."
       ssh -o ServerAliveInterval=60 -o ServerAliveCountMax=1 -N -R 2223:localhost:2222 -p 2222 root@$1
-    else
-      echo "Connecting to ${SERVER} from ${BIND_IP} ..."
-      ssh -b ${BIND_IP} -o ServerAliveInterval=60 -o ServerAliveCountMax=1 -N -R 2223:localhost:2222 -p 2222 root@$1
     fi
     echo "Connection to ${SERVER} lost, retrying in ${RETRY_DELAY}s"
     sleep ${RETRY_DELAY}
