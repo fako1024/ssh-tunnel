@@ -1,4 +1,4 @@
-FROM alpine:3.12
+FROM alpine:3.20
 
 RUN apk --no-cache --update add openssh-server openssh-client
 RUN sed -i s/root:!/"root:*"/g /etc/shadow
